@@ -47,6 +47,7 @@ import Cookies from 'js-cookie'
 import {encrypt} from "@/utils/rsaEncrypt";
 import Config from '@/settings'
 import {setToken} from "@/utils/auth";
+import {getCodeImg} from "@/api/login";
 // import url from "url";
 
 
@@ -55,6 +56,7 @@ export default {
   created() {
     this.getCode()
     this.getCookie()
+    this.point()
   },
   data(){
     return {
@@ -129,9 +131,29 @@ export default {
             setToken(res.data.token, this.loginForm.rememberMe)
             this.$router.push('/dashboard')
           })
+          // this.$store.dispatch('Login', user).then(() => {
+          //   this.loading = false
+          //   this.$router.push({ path: this.redirect || '/' })
+          // }).catch(() => {
+          //   this.loading = false
+          //   this.getCode()
+          // })
         } else alert ("请完善登录信息！")
       })
 
+    },
+
+    point() {
+      const point = Cookies.get('point') !== undefined
+      if (point) {
+        this.$notify({
+          title: '提示',
+          message: '当前登录状态已过期，请重新登录！',
+          type: 'warning',
+          duration: 5000
+        })
+        Cookies.remove('point')
+      }
     }
   }
 }
