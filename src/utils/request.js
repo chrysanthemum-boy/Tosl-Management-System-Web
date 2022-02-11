@@ -1,6 +1,7 @@
 import axios from 'axios'
 // import router from '@/router/routers'
 import { Notification } from 'element-ui'
+import {getToken} from "@/utils/auth";
 // import store from '../store'
 // import { getToken } from '@/utils/auth'
 // import Config from '@/settings'
@@ -13,19 +14,19 @@ const service = axios.create({
 })
 
 
-// // request拦截器
-// service.interceptors.request.use(
-//   config => {
-//     if (getToken()) {
-//       config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-//     }
-//     config.headers['Content-Type'] = 'application/json'
-//     return config
-//   },
-//   error => {
-//     Promise.reject(error)
-//   }
-// )
+// request拦截器
+service.interceptors.request.use(
+  config => {
+    if (getToken()) {
+      config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    }
+    config.headers['Content-Type'] = 'application/json'
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
 //
 // // response 拦截器
 // service.interceptors.response.use(
@@ -87,14 +88,12 @@ const service = axios.create({
 //   }
 // )
 
+// response 拦截器
 service.interceptors.response.use(
     response => {
         return response
     },
     error => {
-        // Element.Notification.error('验证码有误！')
-        //   console.log(error)
-        //   return Promise.reject(error)
         if (error.response.data instanceof Blob && error.response.data.type.toLowerCase().indexOf('json') !== -1) {
             const reader = new FileReader()
             reader.readAsText(error.response.data, 'utf-8')
@@ -147,20 +146,6 @@ service.interceptors.response.use(
         }
         return Promise.reject(error)
     }
-    // error => {
-    //   // 兼容blob下载出错json提示
-    //   if (error.response.data instanceof Blob && error.response.data.type.toLowerCase().indexOf('json') !== -1) {
-    //     const reader = new FileReader()
-    //     reader.readAsText(error.response.data, 'utf-8')
-    //     reader.onload = function (e) {
-    //       const errorMsg = JSON.parse(reader.result).message
-    //       Notification.error({
-    //         title: errorMsg,
-    //         duration: 5000
-    //       })
-    //     }
-    //   }
-    // }
 )
 
 export default service
