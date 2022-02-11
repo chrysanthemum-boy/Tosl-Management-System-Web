@@ -6,17 +6,17 @@
       </h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
-<!--          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />-->
+          <!--          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />-->
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="密码" @keyup.enter.native="handleLogin">
-<!--          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />-->
+          <!--          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />-->
         </el-input>
       </el-form-item>
       <el-form-item prop="code">
         <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width: 63%" @keyup.enter.native="handleLogin">
-<!--          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />-->
+          <!--          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />-->
         </el-input>
         <div class="login-code">
           <img :src="codeUrl" @click="getCode" alt="">
@@ -33,20 +33,21 @@
       </el-form-item>
     </el-form>
     <!--  底部  -->
-<!--    <div v-if="$store.state.settings.showFooter" id="el-login-footer">-->
-<!--      <span v-html="$store.state.settings.footerTxt" />-->
-<!--      <span> ⋅ </span>-->
-<!--      <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">{{ $store.state.settings.caseNumber }}</a>-->
-<!--    </div>-->
+    <!--    <div v-if="$store.state.settings.showFooter" id="el-login-footer">-->
+    <!--      <span v-html="$store.state.settings.footerTxt" />-->
+    <!--      <span> ⋅ </span>-->
+    <!--      <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">{{ $store.state.settings.caseNumber }}</a>-->
+    <!--    </div>-->
   </div>
 </template>
 
 <script>
 import Background from '@/assets/background.png'
 import Cookies from 'js-cookie'
-import {encrypt} from "@/utils/rsaEncrypt";
+import {encrypt} from "@/utils/rsaEncrypt"
 import Config from '@/settings'
-import {setToken} from "@/utils/auth";
+import {setToken} from "@/utils/auth"
+import { Notification } from 'element-ui'
 // import {getCodeImg} from "@/api/login";
 // import url from "url";
 
@@ -56,7 +57,7 @@ export default {
   created() {
     this.getCode()
     this.getCookie()
-    // this.point()
+    this.point()
   },
   data(){
     return {
@@ -142,7 +143,11 @@ export default {
           //   this.loading = false
           //   this.getCode()
           // })
-        } else Notification.error ("请完善登录信息！")
+        } else this.$notify ({
+          title: "请完善登录信息！",
+          type: 'warning',
+          duration: 5000
+        })
       })
 
     },

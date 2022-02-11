@@ -1,7 +1,10 @@
 import axios from 'axios'
 // import router from '@/router/routers'
 import { Notification } from 'element-ui'
-import {getToken} from "@/utils/auth";
+import {getToken, removeToken} from "@/utils/auth";
+import {logout} from "@/api/login";
+import router from "@/router";
+import Config from "@/settings";
 // import store from '../store'
 // import { getToken } from '@/utils/auth'
 // import Config from '@/settings'
@@ -121,10 +124,16 @@ service.interceptors.response.use(
             console.log(code)
             if (code) {
                 if (code === 401) {
+                    Notification.warning({
+                        title: '提示',
+                        message: '当前登录状态已过期，请重新登录！',
+                        duration: 5000
+                    })
+                    logout()
                     // store.dispatch('LogOut').then(() => {
                     //     // 用户登录界面提示
-                    //     Cookies.set('point', 401)
-                    //     location.reload()
+                    // Cookies.set('point', 401)
+                    // location.reload()
                     // })
                 } else if (code === 403) {
                     // this.$router.push('/401')

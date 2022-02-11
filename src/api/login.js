@@ -1,4 +1,7 @@
-import request from '@/utils/request'
+import {removeToken} from "@/utils/auth";
+import Config from "@/settings";
+import router from "@/router";
+import request from "@/utils/request";
 
 export function login(username, password, code, uuid) {
   return request({
@@ -28,8 +31,12 @@ export function getCodeImg() {
 }
 
 export function logout() {
-  return request({
-    url: 'auth/logout',
-    method: 'delete'
+  // return service({
+  //   url: 'auth/logout',
+  //   method: 'delete'
+  // })
+  request.delete('http://localhost:8000/auth/logout').then(res=>{
+    removeToken(Config.TokenKey)
+    router.replace('/').then(r => {})
   })
 }
