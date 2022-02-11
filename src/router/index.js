@@ -26,7 +26,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to ,from,next)=>{
-  if (getToken()){// 已登录
+  if (getToken() !== undefined){// 已登录
     if(to.name === 'Login') next('/dashboard')
     else next()
   }else if(to.name !== 'Login')

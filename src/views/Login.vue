@@ -47,7 +47,7 @@ import Cookies from 'js-cookie'
 import {encrypt} from "@/utils/rsaEncrypt";
 import Config from '@/settings'
 import {setToken} from "@/utils/auth";
-import {getCodeImg} from "@/api/login";
+// import {getCodeImg} from "@/api/login";
 // import url from "url";
 
 
@@ -56,7 +56,7 @@ export default {
   created() {
     this.getCode()
     this.getCookie()
-    this.point()
+    // this.point()
   },
   data(){
     return {
@@ -128,8 +128,12 @@ export default {
             Cookies.remove('rememberMe')
           }
           this.$request.post('http://localhost:8000/auth/login', user).then(res => {
-            setToken(res.data.token, this.loginForm.rememberMe)
+            // this.loading = false
+            setToken(res.data.token, user.rememberMe)
             this.$router.push('/dashboard')
+          }).catch(() => {
+            this.loading = false
+            this.getCode()
           })
           // this.$store.dispatch('Login', user).then(() => {
           //   this.loading = false
@@ -138,7 +142,7 @@ export default {
           //   this.loading = false
           //   this.getCode()
           // })
-        } else alert ("请完善登录信息！")
+        } else Notification.error ("请完善登录信息！")
       })
 
     },

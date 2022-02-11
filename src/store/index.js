@@ -13,19 +13,19 @@ Vue.use(Vuex)
 //   return modules
 // }, {})
 
-const store = new Vuex.Store({
-  // modules,
-  // getters
-})
-
-export default store
-// export default new Vuex.Store({
-//   state: {
-//   },
-//   mutations: {
-//   },
-//   actions: {
-//   },
-//   modules: {
-//   }
+// const store = new Vuex.Store({
+//   // modules,
+//   // getters
 // })
+
+// export default store
+export default new Vuex.Store({
+  state: {
+  },
+  mutations: {
+  },
+  actions: {
+  },
+  modules: {
+  }
+})
