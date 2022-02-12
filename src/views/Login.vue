@@ -6,17 +6,17 @@
       </h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
-          <!--          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />-->
+          <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="密码" @keyup.enter.native="handleLogin">
-          <!--          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />-->
+          <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
       <el-form-item prop="code">
         <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width: 63%" @keyup.enter.native="handleLogin">
-          <!--          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />-->
+          <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
         </el-input>
         <div class="login-code">
           <img :src="codeUrl" @click="getCode" alt="">
@@ -131,7 +131,7 @@ export default {
           this.$request.post('http://localhost:8000/auth/login', user).then(res => {
             // this.loading = false
             setToken(res.data.token, user.rememberMe)
-            this.$router.push('/dashboard')
+            this.$router.push('/')
           }).catch(() => {
             this.loading = false
             this.getCode()

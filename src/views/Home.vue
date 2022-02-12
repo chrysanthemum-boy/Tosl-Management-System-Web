@@ -16,7 +16,7 @@
               {{item.meta.title}}
             </template>
 
-            <el-menu-item :index="child.name" v-for="child in item.children" style="padding-left: 15px">
+            <el-menu-item :index="child.name" v-for="child in item.children" style="padding-left: 15px; text-align: center" @click="selectMenu(item.path, child.path)">
               <template slot="title">
                 <svg-icon slot="prefix" :icon-class="child.meta.icon"/>
                 {{child.meta.title}}
@@ -41,14 +41,7 @@
         </el-header>
 
         <el-main>
-          <el-table :data="tableData">
-            <el-table-column prop="date" label="日期" width="140">
-            </el-table-column>
-            <el-table-column prop="username" label="姓名" width="120">
-            </el-table-column>
-            <el-table-column prop="address" label="地址">
-            </el-table-column>
-          </el-table>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -68,12 +61,13 @@ export default {
   created() {
     this.getMenus()
     this.setUserinfo()
+
   },
   methods: {
     logout(){
       this.$request.delete('http://localhost:8000/auth/logout').then(res=>{
         removeToken(Config.TokenKey)
-        this.$router.replace('/')
+        this.$router.replace('/login')
       })
     },
 
@@ -83,11 +77,17 @@ export default {
         console.log(res.data.user);
       })
     },
+
+
     getMenus() {
       this.$request.get('http://localhost:8000/api/menus/build').then(res => {
         this.menuList = res.data
         console.log(this.menuList);
       })
+    },
+
+    selectMenu(path1, path2) {
+      this.$router.replace(path1 + '/' + path2).catch(err=>err)
     }
   },
 
