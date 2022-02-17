@@ -182,7 +182,8 @@ export default {
 
     getUserInfo() {
       this.$request.get('http://localhost:8000/api/users').then(res => {
-        console.log(res.data);    this.tableData = res.data.content  })
+        console.log(res.data);
+        this.tableData = res.data.content  })
     },
   },
   data() {
