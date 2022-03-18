@@ -1,4 +1,79 @@
 <template>
+  <!--  <div class="dashboard-container">-->
+  <!--    <div class="dashboard-editor-container">-->
+  <!--      <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">-->
+  <!--        <heat-map />-->
+  <!--      </el-row>-->
+  <!--      <el-row :gutter="32">-->
+  <!--        <el-col :xs="24" :sm="24" :lg="8">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <radar-chart />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--        <el-col :xs="24" :sm="24" :lg="8">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <sunburst />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--        <el-col :xs="24" :sm="24" :lg="8">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <gauge />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--      </el-row>-->
+  <!--      <el-row :gutter="12">-->
+  <!--        <el-col :span="12">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <rich />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--        <el-col :span="12">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <theme-river />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--      </el-row>-->
+  <!--      <el-row :gutter="32">-->
+  <!--        <el-col :xs="24" :sm="24" :lg="8">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <graph />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--        <el-col :xs="24" :sm="24" :lg="8">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <sankey />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--        <el-col :xs="24" :sm="24" :lg="8">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <line3-d />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--      </el-row>-->
+  <!--      <el-row :gutter="12">-->
+  <!--        <el-col :span="12">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <scatter />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--        <el-col :span="12">-->
+  <!--          <div class="chart-wrapper">-->
+  <!--            <point />-->
+  <!--          </div>-->
+  <!--        </el-col>-->
+  <!--      </el-row>-->
+  <!--      <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">-->
+  <!--        <div class="chart-wrapper">-->
+  <!--          <word-cloud />-->
+  <!--        </div>-->
+  <!--      </el-row>-->
+  <!--      <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">-->
+  <!--        <div class="chart-wrapper">-->
+  <!--          <category />-->
+  <!--        </div>-->
+  <!--      </el-row>-->
+  <!--    </div>-->
+  <!--  </div>-->
   <div class="app-container">
     <div class="dashboard-editor-container">
       <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
@@ -25,6 +100,18 @@
     </div>
     <!--表格渲染-->
     <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
+      <!--      <el-table-column type="expand">-->
+      <!--        <template slot-scope="props">-->
+      <!--          <el-form label-position="left" inline class="demo-table-expand">-->
+      <!--            <el-form-item label="请求方法">-->
+      <!--              <span>{{ props.row.method }}</span>-->
+      <!--            </el-form-item>-->
+      <!--            <el-form-item label="请求参数">-->
+      <!--              <span>{{ props.row.params }}</span>-->
+      <!--            </el-form-item>-->
+      <!--          </el-form>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
       <el-table-column prop="user_name" label="用户名" />
       <el-table-column prop="createBy" label="发送用户" />
       <el-table-column prop="message" label="消息内容" />
@@ -37,6 +124,18 @@
 </template>
 
 <script>
+// import RadarChart from '@/components/Echarts/RadarChart'
+// import HeatMap from '@/components/Echarts/HeatMap'
+// import Gauge from '@/components/Echarts/Gauge'
+// import Rich from '@/components/Echarts/Rich'
+// import ThemeRiver from '@/components/Echarts/ThemeRiver'
+// import Sunburst from '@/components/Echarts/Sunburst'
+// import Graph from '@/components/Echarts/Graph'
+// import Sankey from '@/components/Echarts/Sankey'
+// import Scatter from '@/components/Echarts/Scatter'
+// import Line3D from '@/components/Echarts/Line3D'
+// import Category from '@/components/Echarts/Category'
+// import Point from '@/components/Echarts/Point'
 import WordCloud from '@/components/Echarts/WordCloud'
 import Search from './search'
 import CRUD, { presenter } from '@crud/crud'
@@ -53,7 +152,7 @@ export default {
     pagination
   },
   cruds() {
-    return CRUD({ title: '消息', url: 'http://localhost:8000/message' })
+    return CRUD({ title: '消息', url: '/message' })
   },
   mixins: [presenter()],
 
