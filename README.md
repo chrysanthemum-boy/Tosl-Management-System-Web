@@ -1,5 +1,9 @@
 # Tosl-Management-System
 
+## 简介
+仿照eladmin-web，编写了TOSL-admin，用于练手和学习。  
+本仓库改编自nanodet，原仓库地址为：[elunez/eladmin-web](https://github.com/elunez/eladmin-web) ，部分版权属于原仓库作者所有，请参见原仓库[License](https://github.com/elunez/eladmin-web/blob/master/LICENSE)（侵权会删）
+
 ## Project setup
 ```
 npm install
