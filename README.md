@@ -1,4 +1,4 @@
-# Tosl-Management-System
+# Tosl-Management-System-Web
 
 ## 简介
 仿照eladmin-web，编写了TOSL-admin，用于练手和学习。  
